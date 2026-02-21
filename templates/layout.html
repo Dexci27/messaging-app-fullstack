@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="eng">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <link href="/static/style.css" rel="stylesheet">
+        <link href="/static/conversations.css" rel="stylesheet">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+        <header>
+            <a href="/">Home</a>
+            <a href="/logout">Log out</a>
+            <hr>
+            <br>
+        </header>
+
+        {% block body %} {% endblock %}
+
+        <p class="error_message">{{ error_message }}</p>
+
+    </body>
+    
+    <script src="/static/script.js"> </script>
+
+</html>

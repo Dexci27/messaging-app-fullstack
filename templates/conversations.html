@@ -1,0 +1,66 @@
+{% if authorization %}
+    <div class="bigConversationContainer">
+
+        <div class="conversationInfoContainer" >
+            <h2 class="conversationName">{{ conversation_info.name }}</h2>
+
+            {% if conversation_info.type == 'group' %}
+                <p>
+                    Group members : You,
+                    {% for member in conversation_info.members if member["id"] != user_id %}
+                        {{member["username"]}},
+                    {% endfor %}
+                </p>
+
+                <form method="get" action="/conversations/groups/{{conversation_info.id}}/members/add">
+                    <button type="submit">Add new member</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="conversationContainer">
+            {% if conversation_info.type == 'person' %}
+                {% for message in conversation_info.messages %}
+                    <div class="messageContainer
+                        {% if message.sender_id == user_id %} messageContainerSender {%else%} messageContainerReceiver {% endif %}
+                    ">
+                        <div class="messageText {% if message.sender_id == user_id %} messageTextSender {%else%} messageTextReceiver {% endif %}"
+                        >
+                            <p>{{ message.content }}</p>
+                            <span style="font-size:10px;">Sent: {{message.date}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for message in conversation_info.messages %}
+                    <div class="messageContainer
+                        {% if message.sender_id == user_id %} messageContainerSender {%else%} messageContainerReceiver {% endif %}
+                    ">
+                        <div class="messageText {% if message.sender_id == user_id %} messageTextSender {%else%} messageTextReceiver {% endif %}"
+                        >
+                            {% if message.sender_id != user_id %}
+                                <span class="personName">
+                                    {% for member in conversation_info.members if member["id"] == message.sender_id%}
+                                        {{member["username"]}}
+                                    {% endfor %}
+                                </span>
+                            {% endif %}
+                            <p>{{ message.content }}</p>
+                            <span style="font-size:10px;">Sent: {{message.date}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="sendingContainer">
+                <textarea class="message" name="message" placeholder="Message..." cols=5 rows=3></textarea>
+                <button class="sendButton" onclick="sendMessage({{conversation_info.id}})" type="submit"">Send</button>
+        </div>
+
+    </div>
+
+{% else %}
+    <p class="error_message">{{error_message}}</p>
+{% endif %}
+

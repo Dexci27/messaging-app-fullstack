@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    New Conversation
+{% endblock %}
+
+
+{% block body %}
+    <form method="post" action="/conversations/new">
+        <input name="member_username" placeholder="Member username">
+        <button type="submit">New Conversation</button>
+    </form>
+{% endblock %}
+
+
+
+

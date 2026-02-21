@@ -1,0 +1,39 @@
+.error_message{
+    color : red;
+    text-align : center;
+    font-size : 30px;
+}
+
+
+.conversationBox{
+    border: solid 1px;
+    margin: 5px;
+}
+
+.mainArea{
+    height: 90vh;
+    width: 100vw;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.conversationArea{
+    width: 75%;
+    height: 80%;
+}
+
+
+.conversationListArea{
+    width: 20%;
+    height: 80%;
+}
+
+.conversationList{
+    width: 100%;
+    height: 100%;
+   overflow: hidden;
+   overflow-y : scroll;
+   overflow-x: scroll;
+}

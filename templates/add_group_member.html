@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add to group
+{% endblock %}
+
+
+{% block body %}
+    <form method="post" action="/conversations/groups/{{ group_id }}/members/add">
+        <input name="member_username" placeholder="Member username">
+        <button type="submit">Add to group</button>
+    </form>
+{% endblock %}

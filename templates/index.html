@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block body %}
+    <h2>{{username}}</h2>
+
+    <div class="mainArea">
+        <div class="conversationListArea">
+            <form method="get" action="/conversations/new">
+                <button type="submit">New Person Conversation</button>
+            </form>
+
+            <form method="get" action="/conversations/groups/new">
+                <button type="submit">New Group Conversation</button>
+            </form>
+
+            <div class="conversationList">
+                {% if user_conversations_info %}
+                    {% for i in range(user_conversations_info|length) %}
+                        {% if user_conversations_info[i]["last_conversation_message"] %}
+                            <div class="conversationBox" data-conversation-id="{{user_conversations_info[i]["conversation_id"]}}">
+                                <p style="font-size:20px; font-weight:bold">{{  find_conversation_name(user_conversations_info[i]["conversation_id"]) }}</p>
+                                <p>
+                                    {% if user_conversations_info[i]["type"] == 'group' and user_conversations_info[i]["last_conversation_message"]["sender_id"] != user_id  %}
+                                        {{ find_username(user_conversations_info[i]["last_conversation_message"]["sender_id"]) }}:
+                                    {% elif user_conversations_info[i]["type"] == 'group' %}
+                                        You:
+                                    {% endif %}
+                                    {{ user_conversations_info[i]["last_conversation_message"]["content"] }}
+                                </p>
+                                <p class="time">{{ user_conversations_info[i]["last_conversation_message"]["date"][11:16] }}</p>
+
+                                {%if user_conversations_info[i]["last_seen_message_id"] != user_conversations_info[i]["last_conversation_message"]["id"]%}
+                                        <p style="color: green;">Not read</p>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="conversationBox" data-conversation-id="{{user_conversations_info[i]["conversation_id"]}}">
+                                <p style="font-size:20px; font-weight:bold">{{  find_conversation_name(user_conversations_info[i]["conversation_id"]) }}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No Conversation Yet!</p>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="conversationArea"></div>
+    </div>
+{% endblock %}
+
