@@ -1,5 +1,5 @@
 # Message App
-
+![App Screenshot](./message-app-preview.png)
 ### Video Demo:  https://youtu.be/ZI1hYLPCu7E
 
 ### Description:
